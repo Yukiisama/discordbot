@@ -13,23 +13,26 @@ client.on('message', message => {
     if(message.content === 'ping'){
         message.reply('pong');
     } else if(params[0] === "!level"){
-<<<<<<< HEAD
-        Summoner(message, {name:params[1]}, (data) => {
-            message.reply(data.summonerLevel);
-        });
-    }
-
-=======
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         Request(message, url, (data) => {
             message.reply(data.summonerLevel);
         });
     } else if(params[0] === "!rank"){
-        let url = '/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
-        Request
-    }  
-    
->>>>>>> 2cfbeff674840fc03922ed240ce62521c5f24098
+        let url = 'https://na1.api.riotgames.com/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
+        Request(message, url, (data) => {
+
+            }
+        }
+    } else if(params[0] === "!winrate") {
+      let url = 'https://na1.api.riotgames.com/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
+      Request(message, url, (data) => {
+        let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/bysummoner/'+data.id+'?api_key='+config.api_key;
+          Request (message, url, () => {
+            message.reply(data.wins / data.losses);
+    } else if(params[0] === "!hasChest" || "!haschest") {
+
+    }
+
 });
 /**
  *
@@ -39,7 +42,7 @@ client.on('message', message => {
  */
 // ======== REQUEST FUNCTIONS =====
 function Request(message, url, callback){
-    https.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params.name+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462', (resp) => {
+    https.get(url, (resp) => {
         let data = '';
         // A chunk of data has been recieved.
         resp.on('data', (chunk) => {
