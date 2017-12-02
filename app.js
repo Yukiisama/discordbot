@@ -3,6 +3,7 @@ const client    = new Discord.Client();
 const config    = require("./config");
 const https     = require("https");
 const Riot      = require("./Riot");
+const champions = require("./champions.js");
 
 client.on('ready', () => {
     console.log('I am ready!');
@@ -13,20 +14,36 @@ client.on('message', message => {
     if(message.content === 'ping'){
         message.reply('pong');
     } else if(params[0] === "!level"){
-        Summoner(message, {name:params[1]}, (data) => {
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462';
+        Request(message, url, (data) => {
             message.reply(data.summonerLevel);
         });
+    } else if(params[0] === "!rank"){
+        // let url = '/lol/league/v3/leagues/'
     }
+
+    else if (params[0] === "!mastery") {
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462';
+        Request(message, url, (data) => {
+            var championID = getChampID(params[2]);
+            let url = 'https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/' + data.id + '/by-champion/' + championID + `?api_key=${config.api_key}`;
+            Request(message, url, (stuff) => {
+                console.log(stuff);
+                message.reply(stuff.championLevel);
+            });
+        });
+    }
+
 });
 /**
  *
- * @param {*} message
+ * @param {*} message Object for reading and send messages
  * @param {*} params {name:""}
- * @param {*} callback
- */ 
+ * @param {*} callback Function for task to perform on data response
+ */
 // ======== REQUEST FUNCTIONS =====
-function Summoner(message, params, callback){
-    https.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params.name+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462', (resp) => {
+function Request(message, url, callback){
+    https.get(url, (resp) => {
         let data = '';
         // A chunk of data has been recieved.
         resp.on('data', (chunk) => {
@@ -40,4 +57,10 @@ function Summoner(message, params, callback){
         console.log("Error: " + err.message);
       });
 }
+
+function getChampID(input){
+  return champions.champList.data[input].id;
+}
+
+
 client.login(config.token);
