@@ -60,9 +60,9 @@ client.on('message', message => {
                   console.log(stuff);
                   if (stuff.status == undefined) {
                     if (stuff.chestGranted == true) {
-                      message.reply("you have received the chest for " + params[2]);
+                      message.reply("you have received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1));
                     } else if (stuff.chestGranted == false) {
-                      message.reply("you have not received the chest for " + params[2]);
+                      message.reply("you have not received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1));
                     }
                   } else if (stuff.status != undefined) {
                       message.channel.send("Riot API Error: " + errorMessages(stuff.status.status_code))
@@ -106,7 +106,8 @@ function getQueueIndex(q, arr){
     }
     return -1;
 }
-function getChampID(input){
+function getChampID(arg){
+  input = arg.toLowerCase().charAt(0).toUpperCase() + arg.toLowerCase().slice(1);
   return champions.champList.data[input].id;
 }
 function errorMessages(errorCode) {
