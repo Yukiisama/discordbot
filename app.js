@@ -1,5 +1,6 @@
 const Discord   = require("discord.js");
 const client    = new Discord.Client();
+var config      = require("./config.js");
 
 client.on('ready', () => {
     console.log('I am ready!');
@@ -11,4 +12,4 @@ client.on('ready', () => {
     }
   });
   
-  client.login('Mzg2NTMyODgxMjg5NDQ1Mzk0.DQRSaA.PpHQDanjPbbNP-FVgZjPGwKemR4');
+  client.login(config.token);
