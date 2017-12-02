@@ -22,6 +22,7 @@ client.on('message', message => {
         Request(message, url, (data) => {
             let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
             Request(message, url, (rankData) => {
+                // let queue = params[2]
                 let index = getQueueIndex("RANKED_SOLO_5x5", rankData);
                 message.reply(rankData[index].tier + " "+rankData[index].rank);
             });
