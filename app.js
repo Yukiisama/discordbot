@@ -13,21 +13,24 @@ client.on('message', message => {
     if(message.content === 'ping'){
         message.reply('pong');
     } else if(params[0] === "!level"){
-        Summoner(message, {name:params[1]}, (data) => {
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462';
+        Request(message, url, (data) => {
             message.reply(data.summonerLevel);
         });
-    }     
+    } else if(params[0] === "!rank"){
+        // let url = '/lol/league/v3/leagues/'
+    }  
     
 });
 /**
  * 
- * @param {*} message 
+ * @param {*} message Object for reading and send messages
  * @param {*} params {name:""}
- * @param {*} callback 
+ * @param {*} callback Function for task to perform on data response
  */
 // ======== REQUEST FUNCTIONS =====
-function Summoner(message, params, callback){
-    https.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params.name+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462', (resp) => {
+function Request(message, url, callback){
+    https.get(url, (resp) => {
         let data = '';           
         // A chunk of data has been recieved.
         resp.on('data', (chunk) => {
@@ -41,4 +44,15 @@ function Summoner(message, params, callback){
         console.log("Error: " + err.message);
       });    
 } 
+function Rank(message, params, callback){
+    https.get('https://na1.api.riotgames.com/lol/league/v3/leagues/by-summoner/'+params.id, (resp) => {
+        let data = '';           
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+        
+        
+    });
+}
 client.login(config.token);
