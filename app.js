@@ -13,12 +13,13 @@ client.on('message', message => {
     if(message.content === 'ping'){
         message.reply('pong');
     } else if(params[0] === "!level"){
-        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462';
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         Request(message, url, (data) => {
             message.reply(data.summonerLevel);
         });
     } else if(params[0] === "!rank"){
-        // let url = '/lol/league/v3/leagues/'
+        let url = '/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
+        Request
     }  
     
 });
