@@ -16,14 +16,14 @@ client.on('message', message => {
         Summoner(message, {name:params[1]}, (data) => {
             message.reply(data.summonerLevel);
         });
-    } 
+    }
 });
 /**
  *
  * @param {*} message
  * @param {*} params {name:""}
  * @param {*} callback
- */
+ */ 
 // ======== REQUEST FUNCTIONS =====
 function Summoner(message, params, callback){
     https.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params.name+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462', (resp) => {
