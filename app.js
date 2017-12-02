@@ -20,18 +20,35 @@ client.on('message', message => {
     } else if(params[0] === "!rank"){
         let url = 'https://na1.api.riotgames.com/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
         Request(message, url, (data) => {
-
-            }
-        }
+          let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
+          Request(message, url, (rankData) => {
+              // let queue = params[2]
+              let index = getQueueIndex("RANKED_SOLO_5x5", rankData);
+              message.reply(rankData[index].tier + " "+rankData[index].rank);
+          });
+        });
     } else if(params[0] === "!winrate") {
-      let url = 'https://na1.api.riotgames.com/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
+      let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
       Request(message, url, (data) => {
-        let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/bysummoner/'+data.id+'?api_key='+config.api_key;
-          Request (message, url, () => {
-            message.reply(data.wins / data.losses);
-    } else if(params[0] === "!hasChest" || "!haschest") {
+        let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
+          Request (message, url, (rankData) => {
+            try {
+                var convertQueue = {
+                  "flex":"RANKED_FLEX_SR",
+                  "solo":"RANKED_SOLO_5x5"
+                }
+                let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
+                let index = getQueueIndex(queue, rankData);
+                message.reply(Math.round(rankData[index].wins / (rankData[index].losses + rankData[index].wins) * 1000) / 1000 + "%");
+              } catch(err){
+                message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
+              }
+          });
+        });
+    } else if(params[0] === "") {
 
     }
+
 
 });
 /**
@@ -56,7 +73,18 @@ function Request(message, url, callback){
         console.log("Error: " + err.message);
       });
 }
-function Winrate() {
-  https.get()
+
+// ==== UTIL FUNCTIONS
+function getQueueIndex (q, arr){
+  for (var i = 0; i < arr.length; i++){
+    if(arr[i].queueType === q){
+      return i;
+    }
+  }
+  return -1;
 }
+
+
+
+
 client.login(config.token);
