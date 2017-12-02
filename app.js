@@ -13,11 +13,23 @@ client.on('message', message => {
     if(message.content === 'ping'){
         message.reply('pong');
     } else if(params[0] === "!level"){
+<<<<<<< HEAD
         Summoner(message, {name:params[1]}, (data) => {
             message.reply(data.summonerLevel);
         });
     }
 
+=======
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
+        Request(message, url, (data) => {
+            message.reply(data.summonerLevel);
+        });
+    } else if(params[0] === "!rank"){
+        let url = '/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
+        Request
+    }  
+    
+>>>>>>> 2cfbeff674840fc03922ed240ce62521c5f24098
 });
 /**
  *
