@@ -22,12 +22,19 @@ client.on('message', message => {
         Request(message, url, (data) => {
             let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
             Request(message, url, (rankData) => {
-                // let queue = params[2]
-                let index = getQueueIndex("RANKED_SOLO_5x5", rankData);
-                message.reply(rankData[index].tier + " "+rankData[index].rank);
+                try{
+                    var convertQueue = {
+                        "flex":"RANKED_FLEX_SR",
+                        "solo":"RANKED_SOLO_5x5"
+                    } 
+                    let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
+                    let index = getQueueIndex(queue, rankData);
+                    message.reply(rankData[index].tier + " "+rankData[index].rank);
+                } catch(err){
+                    message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
+                }
             });
-        });
-        
+        });        
     }  
     
 });
