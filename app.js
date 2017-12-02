@@ -59,17 +59,6 @@ function Request(message, url, callback){
       }).on("error", (err) => {
         console.log("Error: " + err.message);
       });    
-} 
-function Rank(message, params, callback){
-    https.get('https://na1.api.riotgames.com/lol/league/v3/leagues/by-summoner/'+params.id, (resp) => {
-        let data = '';           
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-          data += chunk;
-        });
-        
-        
-    });
 }
 // ========= UTIL FUNCTIONS =========
 function getQueueIndex(q, arr){
