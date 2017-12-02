@@ -19,6 +19,7 @@ https.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/RiotS
   }).on("error", (err) => {
     console.log("Error: " + err.message);
   });
+});
 
 client.on('ready', () => {
     console.log('I am ready!');
