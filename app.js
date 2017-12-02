@@ -14,15 +14,29 @@ client.on('message', message => {
     if(message.content === 'ping'){
         message.reply('pong');
     } else if(params[0] === "!level"){
-        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462';
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         Request(message, url, (data) => {
             message.reply(data.summonerLevel);
         });
     } else if(params[0] === "!rank"){
-        // let url = '/lol/league/v3/leagues/'
-    }
-
-    else if (params[0] === "!mastery") {
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
+        Request(message, url, (data) => {
+            let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
+            Request(message, url, (rankData) => {
+                try{
+                    var convertQueue = {
+                        "flex":"RANKED_FLEX_SR",
+                        "solo":"RANKED_SOLO_5x5"
+                    }
+                    let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
+                    let index = getQueueIndex(queue, rankData);
+                    message.reply(rankData[index].tier + " "+rankData[index].rank);
+                } catch(err){
+                    message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
+                }
+            });
+        });
+    } else if (params[0] === "!mastery") {
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key=RGAPI-fb155021-23cc-4070-98b2-d36f1837e462';
         Request(message, url, (data) => {
             var championID = getChampID(params[2]);
@@ -57,10 +71,17 @@ function Request(message, url, callback){
         console.log("Error: " + err.message);
       });
 }
-
+// ========= UTIL FUNCTIONS =========
+function getQueueIndex(q, arr){
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i].queueType === q){
+            return i;
+        }
+    }
+    return -1;
+}
 function getChampID(input){
   return champions.champList.data[input].id;
 }
-
 
 client.login(config.token);
