@@ -18,8 +18,15 @@ client.on('message', message => {
             message.reply(data.summonerLevel);
         });
     } else if(params[0] === "!rank"){
-        let url = '/lol/league/v3/leagues/'+params[1]+'?api_key='+config.api_key;
-        Request
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
+        Request(message, url, (data) => {
+            let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
+            Request(message, url, (rankData) => {
+                let index = getQueueIndex("RANKED_SOLO_5x5", rankData);
+                message.reply(rankData[index].tier + " "+rankData[index].rank);
+            });
+        });
+        
     }  
     
 });
@@ -55,5 +62,14 @@ function Rank(message, params, callback){
         
         
     });
+}
+// ========= UTIL FUNCTIONS =========
+function getQueueIndex(q, arr){
+    for(var i = 0; i < arr.length; i++){
+        if(arr[i].queueType === q){
+            return i;
+        }
+    }
+    return -1;
 }
 client.login(config.token);
