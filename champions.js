@@ -21,6 +21,12 @@ champList: {
             "key": "Fiddlesticks",
             "name": "Fiddlesticks"
         },
+        "Fiddle": {
+            "title": "the Harbinger of Doom",
+            "id": 9,
+            "key": "Fiddlesticks",
+            "name": "Fiddlesticks"
+        },
         "Shaco": {
             "title": "the Demon Jester",
             "id": 35,
@@ -33,6 +39,12 @@ champList: {
             "key": "Warwick",
             "name": "Warwick"
         },
+        "Ww": {
+            "title": "the Uncaged Wrath of Zaun",
+            "id": 19,
+            "key": "Warwick",
+            "name": "Warwick"
+        },
         "Xayah": {
             "title": "the Rebel",
             "id": 498,
@@ -40,6 +52,12 @@ champList: {
             "name": "Xayah"
         },
         "Nidalee": {
+            "title": "the Bestial Huntress",
+            "id": 76,
+            "key": "Nidalee",
+            "name": "Nidalee"
+        },
+        "Nid": {
             "title": "the Bestial Huntress",
             "id": 76,
             "key": "Nidalee",
@@ -99,7 +117,19 @@ champList: {
             "key": "Tryndamere",
             "name": "Tryndamere"
         },
-        "MissFortune": {
+        "Trynd": {
+            "title": "the Barbarian King",
+            "id": 23,
+            "key": "Tryndamere",
+            "name": "Tryndamere"
+        },
+        "Missfortune": {
+            "title": "the Bounty Hunter",
+            "id": 21,
+            "key": "MissFortune",
+            "name": "Miss Fortune"
+        },
+        "Mf": {
             "title": "the Bounty Hunter",
             "id": 21,
             "key": "MissFortune",
@@ -135,7 +165,19 @@ champList: {
             "key": "Orianna",
             "name": "Orianna"
         },
+        "Ori": {
+            "title": "the Lady of Clockwork",
+            "id": 61,
+            "key": "Orianna",
+            "name": "Orianna"
+        },
         "Gangplank": {
+            "title": "the Saltwater Scourge",
+            "id": 41,
+            "key": "Gangplank",
+            "name": "Gangplank"
+        },
+        "Gp": {
             "title": "the Saltwater Scourge",
             "id": 41,
             "key": "Gangplank",
@@ -207,6 +249,12 @@ champList: {
             "key": "Shyvana",
             "name": "Shyvana"
         },
+        "Shyv": {
+            "title": "the Half-Dragon",
+            "id": 102,
+            "key": "Shyvana",
+            "name": "Shyvana"
+        },
         "Renekton": {
             "title": "the Butcher of the Sands",
             "id": 58,
@@ -238,6 +286,12 @@ champList: {
             "name": "Fizz"
         },
         "Kassadin": {
+            "title": "the Void Walker",
+            "id": 38,
+            "key": "Kassadin",
+            "name": "Kassadin"
+        },
+        "Kass": {
             "title": "the Void Walker",
             "id": 38,
             "key": "Kassadin",
@@ -279,6 +333,12 @@ champList: {
             "key": "Cassiopeia",
             "name": "Cassiopeia"
         },
+        "Cass": {
+            "title": "the Serpent's Embrace",
+            "id": 69,
+            "key": "Cassiopeia",
+            "name": "Cassiopeia"
+        },
         "Maokai": {
             "title": "the Twisted Treant",
             "id": 57,
@@ -315,6 +375,12 @@ champList: {
             "key": "Khazix",
             "name": "Kha'Zix"
         },
+        "Khaz": {
+            "title": "the Voidreaver",
+            "id": 121,
+            "key": "Khazix",
+            "name": "Kha'Zix"
+        },
         "Olaf": {
             "title": "the Berserker",
             "id": 2,
@@ -333,7 +399,13 @@ champList: {
             "key": "Syndra",
             "name": "Syndra"
         },
-        "DrMundo": {
+        "Drmundo": {
+            "title": "the Madman of Zaun",
+            "id": 36,
+            "key": "DrMundo",
+            "name": "Dr. Mundo"
+        },
+        "Mundo": {
             "title": "the Madman of Zaun",
             "id": 36,
             "key": "DrMundo",
@@ -441,7 +513,7 @@ champList: {
             "key": "Kayn",
             "name": "Kayn"
         },
-        "TwistedFate": {
+        "Twistedfate": {
             "title": "the Card Master",
             "id": 4,
             "key": "TwistedFate",
@@ -483,7 +555,19 @@ champList: {
             "key": "Caitlyn",
             "name": "Caitlyn"
         },
+        "Cait": {
+            "title": "the Sheriff of Piltover",
+            "id": 51,
+            "key": "Caitlyn",
+            "name": "Caitlyn"
+        },
         "Sejuani": {
+            "title": "Fury of the North",
+            "id": 113,
+            "key": "Sejuani",
+            "name": "Sejuani"
+        },
+        "Sej": {
             "title": "Fury of the North",
             "id": 113,
             "key": "Sejuani",
@@ -519,6 +603,12 @@ champList: {
             "key": "Morgana",
             "name": "Morgana"
         },
+        "Morg": {
+            "title": "Fallen Angel",
+            "id": 25,
+            "key": "Morgana",
+            "name": "Morgana"
+        },
         "Taliyah": {
             "title": "the Stoneweaver",
             "id": 163,
@@ -526,6 +616,12 @@ champList: {
             "name": "Taliyah"
         },
         "Teemo": {
+            "title": "the Swift Scout",
+            "id": 17,
+            "key": "Teemo",
+            "name": "Teemo"
+        },
+        "Cancer": {
             "title": "the Swift Scout",
             "id": 17,
             "key": "Teemo",
@@ -550,6 +646,18 @@ champList: {
             "name": "Galio"
         },
         "Heimerdinger": {
+            "title": "the Revered Inventor",
+            "id": 74,
+            "key": "Heimerdinger",
+            "name": "Heimerdinger"
+        },
+        "Heim": {
+            "title": "the Revered Inventor",
+            "id": 74,
+            "key": "Heimerdinger",
+            "name": "Heimerdinger"
+        },
+        "Heimer": {
             "title": "the Revered Inventor",
             "id": 74,
             "key": "Heimerdinger",
@@ -609,7 +717,19 @@ champList: {
             "key": "Blitzcrank",
             "name": "Blitzcrank"
         },
-        "MasterYi": {
+        "Blitz": {
+            "title": "the Great Steam Golem",
+            "id": 53,
+            "key": "Blitzcrank",
+            "name": "Blitzcrank"
+        },
+        "Masteryi": {
+            "title": "the Wuju Bladesman",
+            "id": 11,
+            "key": "MasterYi",
+            "name": "Master Yi"
+        },
+        "Yi": {
             "title": "the Wuju Bladesman",
             "id": 11,
             "key": "MasterYi",
@@ -633,6 +753,12 @@ champList: {
             "key": "Katarina",
             "name": "Katarina"
         },
+        "Kat": {
+            "title": "the Sinister Blade",
+            "id": 55,
+            "key": "Katarina",
+            "name": "Katarina"
+        },
         "Ekko": {
             "title": "the Boy Who Shattered Time",
             "id": 245,
@@ -640,6 +766,12 @@ champList: {
             "name": "Ekko"
         },
         "Mordekaiser": {
+            "title": "the Iron Revenant",
+            "id": 82,
+            "key": "Mordekaiser",
+            "name": "Mordekaiser"
+        },
+        "Mord": {
             "title": "the Iron Revenant",
             "id": 82,
             "key": "Mordekaiser",
@@ -669,7 +801,13 @@ champList: {
             "key": "Draven",
             "name": "Draven"
         },
-        "TahmKench": {
+        "Tahmkench": {
+            "title": "the River King",
+            "id": 223,
+            "key": "TahmKench",
+            "name": "Tahm Kench"
+        },
+        "Tahm": {
             "title": "the River King",
             "id": 223,
             "key": "TahmKench",
@@ -681,19 +819,37 @@ champList: {
             "key": "Pantheon",
             "name": "Pantheon"
         },
-        "XinZhao": {
+        "Xinzhao": {
             "title": "the Seneschal of Demacia",
             "id": 5,
             "key": "XinZhao",
             "name": "Xin Zhao"
         },
-        "AurelionSol": {
+        "Xin": {
+            "title": "the Seneschal of Demacia",
+            "id": 5,
+            "key": "XinZhao",
+            "name": "Xin Zhao"
+        },
+        "Aurelionsol": {
             "title": "The Star Forger",
             "id": 136,
             "key": "AurelionSol",
             "name": "Aurelion Sol"
         },
-        "LeeSin": {
+        "Asol": {
+            "title": "The Star Forger",
+            "id": 136,
+            "key": "AurelionSol",
+            "name": "Aurelion Sol"
+        },
+        "Leesin": {
+            "title": "the Blind Monk",
+            "id": 64,
+            "key": "LeeSin",
+            "name": "Lee Sin"
+        },
+        "Lee": {
             "title": "the Blind Monk",
             "id": 64,
             "key": "LeeSin",
@@ -706,6 +862,12 @@ champList: {
             "name": "Taric"
         },
         "Malzahar": {
+            "title": "the Prophet of the Void",
+            "id": 90,
+            "key": "Malzahar",
+            "name": "Malzahar"
+        },
+        "Malz": {
             "title": "the Prophet of the Void",
             "id": 90,
             "key": "Malzahar",
@@ -729,7 +891,13 @@ champList: {
             "key": "Tristana",
             "name": "Tristana"
         },
-        "RekSai": {
+        "Trist": {
+            "title": "the Yordle Gunner",
+            "id": 18,
+            "key": "Tristana",
+            "name": "Tristana"
+        },
+        "Reksai": {
             "title": "the Void Burrower",
             "id": 421,
             "key": "RekSai",
@@ -741,7 +909,25 @@ champList: {
             "key": "Vladimir",
             "name": "Vladimir"
         },
-        "JarvanIV": {
+        "Jarvaniv": {
+            "title": "the Exemplar of Demacia",
+            "id": 59,
+            "key": "JarvanIV",
+            "name": "Jarvan IV"
+        },
+        "Jarvan4": {
+            "title": "the Exemplar of Demacia",
+            "id": 59,
+            "key": "JarvanIV",
+            "name": "Jarvan IV"
+        },
+        "J4": {
+            "title": "the Exemplar of Demacia",
+            "id": 59,
+            "key": "JarvanIV",
+            "name": "Jarvan IV"
+        },
+        "Jiv": {
             "title": "the Exemplar of Demacia",
             "id": 59,
             "key": "JarvanIV",
@@ -783,7 +969,19 @@ champList: {
             "key": "Nautilus",
             "name": "Nautilus"
         },
+        "Naut": {
+            "title": "the Titan of the Depths",
+            "id": 111,
+            "key": "Nautilus",
+            "name": "Nautilus"
+        },
         "Evelynn": {
+            "title": "Agony's Embrace",
+            "id": 28,
+            "key": "Evelynn",
+            "name": "Evelynn"
+        },
+        "Eve": {
             "title": "Agony's Embrace",
             "id": 28,
             "key": "Evelynn",
@@ -807,7 +1005,13 @@ champList: {
             "key": "Vi",
             "name": "Vi"
         },
-        "KogMaw": {
+        "Kogmaw": {
+            "title": "the Mouth of the Abyss",
+            "id": 96,
+            "key": "KogMaw",
+            "name": "Kog'Maw"
+        },
+        "Kog": {
             "title": "the Mouth of the Abyss",
             "id": 96,
             "key": "KogMaw",
