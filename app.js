@@ -72,9 +72,7 @@ client.on('message', message => {
               message.channel.send('Usage: !haschest <summoner> <champion>');
             }
         });
-    }
-
-    else if (params[0] === "!info") {
+    } else if (params[0] === "!info") {
       let url = `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${params[1]}?api_key=${config.api_key}`;
       Request(message, url, (data) => {
         try {

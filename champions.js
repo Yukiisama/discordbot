@@ -99,7 +99,7 @@ champList: {
             "key": "Tryndamere",
             "name": "Tryndamere"
         },
-        "MissFortune": {
+        "Missfortune": {
             "title": "the Bounty Hunter",
             "id": 21,
             "key": "MissFortune",
@@ -333,7 +333,7 @@ champList: {
             "key": "Syndra",
             "name": "Syndra"
         },
-        "DrMundo": {
+        "Drmundo": {
             "title": "the Madman of Zaun",
             "id": 36,
             "key": "DrMundo",
@@ -441,7 +441,7 @@ champList: {
             "key": "Kayn",
             "name": "Kayn"
         },
-        "TwistedFate": {
+        "Twistedfate": {
             "title": "the Card Master",
             "id": 4,
             "key": "TwistedFate",
@@ -609,7 +609,7 @@ champList: {
             "key": "Blitzcrank",
             "name": "Blitzcrank"
         },
-        "MasterYi": {
+        "Masteryi": {
             "title": "the Wuju Bladesman",
             "id": 11,
             "key": "MasterYi",
@@ -669,7 +669,7 @@ champList: {
             "key": "Draven",
             "name": "Draven"
         },
-        "TahmKench": {
+        "Tahmkench": {
             "title": "the River King",
             "id": 223,
             "key": "TahmKench",
@@ -681,19 +681,19 @@ champList: {
             "key": "Pantheon",
             "name": "Pantheon"
         },
-        "XinZhao": {
+        "Xinzhao": {
             "title": "the Seneschal of Demacia",
             "id": 5,
             "key": "XinZhao",
             "name": "Xin Zhao"
         },
-        "AurelionSol": {
+        "Aurelionsol": {
             "title": "The Star Forger",
             "id": 136,
             "key": "AurelionSol",
             "name": "Aurelion Sol"
         },
-        "LeeSin": {
+        "Leesin": {
             "title": "the Blind Monk",
             "id": 64,
             "key": "LeeSin",
@@ -729,7 +729,7 @@ champList: {
             "key": "Tristana",
             "name": "Tristana"
         },
-        "RekSai": {
+        "Reksai": {
             "title": "the Void Burrower",
             "id": 421,
             "key": "RekSai",
@@ -741,7 +741,13 @@ champList: {
             "key": "Vladimir",
             "name": "Vladimir"
         },
-        "JarvanIV": {
+        "Jarvaniv": {
+            "title": "the Exemplar of Demacia",
+            "id": 59,
+            "key": "JarvanIV",
+            "name": "Jarvan IV"
+        },
+        "Jarvan4": {
             "title": "the Exemplar of Demacia",
             "id": 59,
             "key": "JarvanIV",
@@ -807,7 +813,7 @@ champList: {
             "key": "Vi",
             "name": "Vi"
         },
-        "KogMaw": {
+        "Kogmaw": {
             "title": "the Mouth of the Abyss",
             "id": 96,
             "key": "KogMaw",
