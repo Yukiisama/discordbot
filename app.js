@@ -76,7 +76,6 @@ client.on('message', message => {
             var championID = getChampID(params[2]);
             let url = `https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${data.id}/by-champion/${championID}?api_key=${config.api_key}`;
             Request(message, url, (stuff) => {
-                console.log(stuff);
                 message.reply(stuff.championLevel);
             });
           } catch(err) {
@@ -132,7 +131,6 @@ client.on('message', message => {
               var championID = getChampID(params[2]);
               let url = `https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${data.id}/by-champion/${championID}?api_key=${config.api_key}`;
               Request(message, url, (stuff) => {
-                  console.log(stuff);
                   if (stuff.status == undefined) {
                     if (stuff.chestGranted == true) {
                       message.reply("you have received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1));
@@ -154,7 +152,6 @@ client.on('message', message => {
         let url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions/'+championID+'?locale=en_US&tags=image&api_key='+config.api_key;
           Request (message, url, (champData) => {
             try {
-            console.log(champData);
             const embed = new Discord.RichEmbed();
             embed.setColor("#f4f740");
             embed.setThumbnail ('https://ddragon.leagueoflegends.com/cdn/7.23.1/img/champion/' + champData.image.full);
@@ -179,7 +176,6 @@ client.on('message', message => {
           let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
             Request (message, url, (rankData) => {
                 let index = getQueueIndex("RANKED_SOLO_5x5", rankData, "queueType");
-                console.log(rankData);
                 if (rankData[index] === undefined) {
                   embed.addField("Ranked Stats are unavailable.", "Play your placements!");
                 } else {
