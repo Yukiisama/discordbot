@@ -23,149 +23,153 @@ client.on('ready', () => {
 
 client.on('message', message => {
     let params = message.content.split(" ");
-    if(message.content === 'ping'){
-        message.reply('pong');
-    } else if(params[0] === "!level"){
+      if (params[0] === "!commands") {
+        const embed = new Discord.RichEmbed();
+        embed.setColor("#f4f740");
+        embed.setTitle("List of available commands: ");
+        embed.setDescription("!level, !rank, !winrate, !mastery, !haschest, !info, !profile");
+        message.channel.send({embed});
+      } else if(params[0] === "!level") {
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         Request(message, url, (data) => {
-            message.reply(data.summonerLevel);
+            message.channel.send(params[1] + " is level " + data.summonerLevel + ".");
         });
 
-    } else if(params[0] === "!rank"){
-        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
-        Request(message, url, (data) => {
-            let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
-            Request(message, url, (rankData) => {
-                try{
-                    var convertQueue = {
-                        "flex":"RANKED_FLEX_SR",
-                        "solo":"RANKED_SOLO_5x5"
-                    }
-                    let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
-                    let index = getQueueIndex(queue, rankData, "queueType");
-                    message.reply(rankData[index].tier + " "+rankData[index].rank);
-                } catch(err){
-                    message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
-                }
-            });
-        });
-
-    } else if(params[0] === "!winrate") {
-      let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
-      Request(message, url, (data) => {
-        let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
-          Request (message, url, (rankData) => {
-            try {
-                var convertQueue = {
-                  "flex":"RANKED_FLEX_SR",
-                  "solo":"RANKED_SOLO_5x5"
-                }
-                let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
-                let index = getQueueIndex(queue, rankData, "queueType");
-                message.reply(Math.round(rankData[index].wins / (rankData[index].losses + rankData[index].wins) * 1000) / 10 + "%");
-              } catch(err){
-                message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
-              }
+      } else if(params[0] === "!rank"){
+          let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
+          Request(message, url, (data) => {
+              let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
+              Request(message, url, (rankData) => {
+                  try{
+                      var convertQueue = {
+                          "flex":"RANKED_FLEX_SR",
+                          "solo":"RANKED_SOLO_5x5"
+                      }
+                      let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
+                      let index = getQueueIndex(queue, rankData, "queueType");
+                      message.channel.send(params[1] + " is " + rankData[index].tier + " " + rankData[index].rank + " in " + params[2] + " queue.");
+                  } catch(err){
+                      message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
+                  }
+              });
           });
-        });
 
-    } else if (params[0] === "!mastery") {
-        let url = `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${params[1]}?api_key=${config.api_key}`;
-        Request(message, url, (data) => {
-          try{
-            var championID = getChampID(params[2]);
-            let url = `https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${data.id}/by-champion/${championID}?api_key=${config.api_key}`;
-            Request(message, url, (stuff) => {
-                message.reply(stuff.championLevel);
-            });
-          } catch(err) {
-            message.channel.send('Usage: !mastery <summoner> <champion>');
-          }
-        });
-    } else if (params[0] === "!live"){
+      } else if(params[0] === "!winrate") {
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         Request(message, url, (data) => {
-            let url = 'https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/'+data.id+'?api_key='+config.api_key;
-            Request(message, url, (liveData) => {
-              if(liveData.status !== undefined && liveData.status.message === "Data not found"){
-                    message.channel.send("User not in live game!!");
-                    return;
+          let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
+            Request (message, url, (rankData) => {
+              try {
+                  var convertQueue = {
+                    "flex":"RANKED_FLEX_SR",
+                    "solo":"RANKED_SOLO_5x5"
+                  }
+                  let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
+                  let index = getQueueIndex(queue, rankData, "queueType");
+                  message.channel.send(params[1] + "'s winrate is " + Math.round(rankData[index].wins / (rankData[index].losses + rankData[index].wins) * 1000) / 10 + "% in " + params[2] + " queue.");
+                } catch(err){
+                  message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
                 }
-                let queue = queueMatch[liveData.gameQueueConfigId];
-                const embed = new Discord.RichEmbed();
-                embed.setColor("#f4f740");
-                embed.setAuthor("Live Game Stats", "http://i.imgur.com/xNLs83T.png");
-                embed.setTitle(queue);
-                let blueTeam = "", redTeam = "";
-                for(var i in liveData.participants){
-                    if(liveData.participants[i].teamId === 100){ //Blue
-                        blueTeam+=formatField(liveData.participants[i])+"\n";
-                    } else {
-                        redTeam+=formatField(liveData.participants[i])+"\n";
-                    }
-                }
-                let blueBans = "", redBans = "";
-                for(var i in liveData.bannedChampions){
-                    let champ = getChampFromId(liveData.bannedChampions[i].championId);
-                    if(liveData.bannedChampions[i].teamId === 100){ //Blue
-                        blueBans+=champ+"\n";
-                    } else {
-                        redBans+=champ+"\n";
-                    }
-                }
-                embed.addField("Blue Team", blueTeam, true);
-                embed.addField("Bans", blueBans, true);
-                embed.addBlankField();
-                embed.addField("Red Team", redTeam, true);
-                embed.addField("Bans", redBans, true);
-                message.channel.send({embed});
             });
-        });
-    } else if(params[0] === "!matt"){
-        let index = Math.floor(Math.random() * (matt.length-1)) + 1  ;
-        message.channel.send(matt[index]);
-    } else if (params[0] === "!haschest") {
-        let url = `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${params[1]}?api_key=${config.api_key}`;
-        Request(message, url, (data) => {
-            try {
+          });
+
+      } else if (params[0] === "!mastery") {
+          let url = `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${params[1]}?api_key=${config.api_key}`;
+          Request(message, url, (data) => {
+            try{
               var championID = getChampID(params[2]);
               let url = `https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${data.id}/by-champion/${championID}?api_key=${config.api_key}`;
               Request(message, url, (stuff) => {
-                  if (stuff.status == undefined) {
-                    if (stuff.chestGranted == true) {
-                      message.reply("you have received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1));
-                    } else if (stuff.chestGranted == false) {
-                      message.reply("you have not received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1));
-                    }
-                  } else if (stuff.status != undefined) {
-                      message.channel.send("Riot API Error: " + errorMessages(stuff.status.status_code))
-                  }
+                  message.channel.send(params[1] + " is mastery level " + stuff.championLevel + " with " + params[2]);
               });
             } catch(err) {
-              message.channel.send('Usage: !haschest <summoner> <champion>');
+              message.channel.send('Usage: !mastery <summoner> <champion>');
             }
-        });
-    } else if(params[0] === "!lastplayed") {
-      let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
-      Request(message, url, (data) => {
-        var championID = getChampID(params[2]);
-        let url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions/'+championID+'?locale=en_US&tags=image&api_key='+config.api_key;
-          Request (message, url, (champData) => {
-            try {
-            const embed = new Discord.RichEmbed();
-            embed.setColor("#f4f740");
-            embed.setThumbnail ('https://ddragon.leagueoflegends.com/cdn/7.23.1/img/champion/' + champData.image.full);
-            let url = 'https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/'+ data.id + '/by-champion/' + championID + '?api_key='+config.api_key;
-              Request (message, url, (masteryData) => {
-                embed.setAuthor (params[1] + ",")
-                embed.setDescription ("You have last played " + "**" + params[2] + "** " + moment(masteryData.lastPlayTime).fromNow() + ".")
-                message.channel.send({embed});
-            });
-          } catch (err) {
-            message.channel.send("Usage: !lastplayed <summoner> <champion>");
-          }
-            });
-        });
+          });
+      } else if (params[0] === "!live"){
+          let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
+          Request(message, url, (data) => {
+              let url = 'https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/'+data.id+'?api_key='+config.api_key;
+              Request(message, url, (liveData) => {
+                if(liveData.status !== undefined && liveData.status.message === "Data not found"){
+                      message.channel.send("User not in live game!!");
+                      return;
+                  }
+                  let queue = queueMatch[liveData.gameQueueConfigId];
+                  const embed = new Discord.RichEmbed();
+                  embed.setColor("#f4f740");
+                  embed.setAuthor("Live Game Stats", "http://i.imgur.com/xNLs83T.png");
+                  embed.setTitle(queue);
+                  let blueTeam = "", redTeam = "";
+                  for(var i in liveData.participants){
+                      if(liveData.participants[i].teamId === 100){ //Blue
+                          blueTeam+=formatField(liveData.participants[i])+"\n";
+                      } else {
+                          redTeam+=formatField(liveData.participants[i])+"\n";
+                      }
+                  }
+                  let blueBans = "", redBans = "";
+                  for(var i in liveData.bannedChampions){
+                      let champ = getChampFromId(liveData.bannedChampions[i].championId);
+                      if(liveData.bannedChampions[i].teamId === 100){ //Blue
+                          blueBans+=champ+"\n";
+                      } else {
+                          redBans+=champ+"\n";
+                      }
+                  }
+                  embed.addField("Blue Team", blueTeam, true);
+                  embed.addField("Bans", blueBans, true);
+                  embed.addBlankField();
+                  embed.addField("Red Team", redTeam, true);
+                  embed.addField("Bans", redBans, true);
+                  message.channel.send({embed});
+              });
+          });
+      } else if(params[0] === "!matt"){
+          let index = Math.floor(Math.random() * (matt.length-1)) + 1  ;
+          message.channel.send(matt[index]);
+      } else if (params[0] === "!haschest") {
+          let url = `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${params[1]}?api_key=${config.api_key}`;
+          Request(message, url, (data) => {
+              try {
+                var championID = getChampID(params[2]);
+                let url = `https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/${data.id}/by-champion/${championID}?api_key=${config.api_key}`;
+                Request(message, url, (stuff) => {
+                    if (stuff.status == undefined) {
+                      if (stuff.chestGranted == true) {
+                        message.channel.send(params[1] + " has received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1) + "!");
+                      } else if (stuff.chestGranted == false) {
+                        message.channel.send(params[1] + " has not received the chest for " + params[2].toLowerCase().charAt(0).toUpperCase() + params[2].toLowerCase().slice(1) + "!");
+                      }
+                    } else if (stuff.status != undefined) {
+                        message.channel.send("Riot API Error: " + errorMessages(stuff.status.status_code))
+                    }
+                });
+              } catch(err) {
+                message.channel.send('Usage: !haschest <summoner> <champion>');
+              }
+          });
+      } else if(params[0] === "!lastplayed") {
+        let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
+        Request(message, url, (data) => {
+          var championID = getChampID(params[2]);
+          let url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions/'+championID+'?locale=en_US&tags=image&api_key='+config.api_key;
+            Request (message, url, (champData) => {
+              try {
+              const embed = new Discord.RichEmbed();
+              embed.setColor("#f4f740");
+              embed.setThumbnail ('https://ddragon.leagueoflegends.com/cdn/7.23.1/img/champion/' + champData.image.full);
+              let url = 'https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/'+ data.id + '/by-champion/' + championID + '?api_key='+config.api_key;
+                Request (message, url, (masteryData) => {
+                  embed.setAuthor (params[1] + ",")
+                  embed.setDescription ("You have last played " + "**" + params[2] + "** " + moment(masteryData.lastPlayTime).fromNow() + ".")
+                  message.channel.send({embed});
+              });
+            } catch (err) {
+              message.channel.send("Usage: !lastplayed <summoner> <champion>");
+            }
+              });
+          });
       } else if(params[0] === "!profile") {
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         const embed = new Discord.RichEmbed();
