@@ -82,32 +82,35 @@ client.on('message', message => {
           let url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions/'+championID+'?locale=en_US&tags=all&api_key='+config.api_key;
           const embedded = new Discord.RichEmbed();
           Request(message, url, (champData) => {
-            console.log(champData.spells[1]);
-            embedded.setColor("#f4f740");
-            embedded.setTitle(`**${champData.name}**`);
-            embedded.setDescription(`*${champData.title}*`);
-            embedded.setThumbnail(`https://ddragon.leagueoflegends.com/cdn/7.23.1/img/champion/${champData.image.full}`);
-            embedded.addField(`Health`, `${champData.stats.hp}+${champData.stats.hpperlevel}`, true);
-            embedded.addField(`HP Regen`, `${champData.stats.hpregen}+${champData.stats.hpregenperlevel}`, true);
-            embedded.addField(`Mana`, `${champData.stats.mp}+${champData.stats.mpperlevel}`, true);
-            embedded.addField(`MP Regen`, `${champData.stats.mpregen}+${champData.stats.mpregenperlevel}`, true);
-            embedded.addField("Passive: "+ champData.passive.name, champData.passive.description);
-            embedded.addField("Q: "+ champData.spells[0].name, champData.spells[0].description +
-                              `\n**Cost**: ${champData.spells[0].cost[0]}/${champData.spells[0].cost[1]}/${champData.spells[0].cost[2]}/${champData.spells[0].cost[3]}/${champData.spells[0].cost[4]}` +
-                              `\n**Cooldown**: ${champData.spells[0].cooldown[0]}/${champData.spells[0].cooldown[1]}/${champData.spells[0].cooldown[2]}/${champData.spells[0].cooldown[3]}/${champData.spells[0].cooldown[4]}`, true);
-            embedded.addField("W: "+ champData.spells[1].name, champData.spells[1].description +
-                              `\n**Cost**: ${champData.spells[1].cost[0]}/${champData.spells[1].cost[1]}/${champData.spells[1].cost[2]}/${champData.spells[1].cost[3]}/${champData.spells[1].cost[4]}` +
-                              `\n**Cooldown**: ${champData.spells[1].cooldown[0]}/${champData.spells[1].cooldown[1]}/${champData.spells[1].cooldown[2]}/${champData.spells[1].cooldown[3]}/${champData.spells[1].cooldown[4]}`, true);
-            embedded.addField("E: "+ champData.spells[2].name, champData.spells[2].description +
-                              `\n**Cost**: ${champData.spells[2].cost[0]}/${champData.spells[2].cost[1]}/${champData.spells[2].cost[2]}/${champData.spells[2].cost[3]}/${champData.spells[2].cost[4]}` +
-                              `\n**Cooldown**: ${champData.spells[2].cooldown[0]}/${champData.spells[2].cooldown[1]}/${champData.spells[2].cooldown[2]}/${champData.spells[2].cooldown[3]}/${champData.spells[2].cooldown[4]}`, true);
-            embedded.addField("R: "+ champData.spells[3].name, champData.spells[3].description +
-                              `\n**Cost**: ${champData.spells[3].cost[0]}/${champData.spells[3].cost[1]}/${champData.spells[3].cost[2]}` +
-                              `\n**Cooldown**: ${champData.spells[3].cooldown[0]}/${champData.spells[3].cooldown[1]}/${champData.spells[3].cooldown[2]}`, true);
-            message.channel.send(embedded);
+            if (champData.status != undefined) {
+              message.channel.send("Riot API Error: " + errorMessages(champData.status.status_code))
+            } else if (champData.status == undefined) {
+              embedded.setColor("#f4f740");
+              embedded.setTitle(`**${champData.name}**`);
+              embedded.setDescription(`*${champData.title}*`);
+              embedded.setThumbnail(`https://ddragon.leagueoflegends.com/cdn/7.23.1/img/champion/${champData.image.full}`);
+              embedded.addField(`Health`, `${champData.stats.hp}+${champData.stats.hpperlevel}`, true);
+              embedded.addField(`HP Regen`, `${champData.stats.hpregen}+${champData.stats.hpregenperlevel}`, true);
+              embedded.addField(`Mana`, `${champData.stats.mp}+${champData.stats.mpperlevel}`, true);
+              embedded.addField(`MP Regen`, `${champData.stats.mpregen}+${champData.stats.mpregenperlevel}`, true);
+              embedded.addField("Passive: "+ champData.passive.name, champData.passive.description);
+              embedded.addField("Q: "+ champData.spells[0].name, champData.spells[0].description +
+                                `\n**Cost**: ${champData.spells[0].cost[0]}/${champData.spells[0].cost[1]}/${champData.spells[0].cost[2]}/${champData.spells[0].cost[3]}/${champData.spells[0].cost[4]}` +
+                                `\n**Cooldown**: ${champData.spells[0].cooldown[0]}/${champData.spells[0].cooldown[1]}/${champData.spells[0].cooldown[2]}/${champData.spells[0].cooldown[3]}/${champData.spells[0].cooldown[4]}`, true);
+              embedded.addField("W: "+ champData.spells[1].name, champData.spells[1].description +
+                                `\n**Cost**: ${champData.spells[1].cost[0]}/${champData.spells[1].cost[1]}/${champData.spells[1].cost[2]}/${champData.spells[1].cost[3]}/${champData.spells[1].cost[4]}` +
+                                `\n**Cooldown**: ${champData.spells[1].cooldown[0]}/${champData.spells[1].cooldown[1]}/${champData.spells[1].cooldown[2]}/${champData.spells[1].cooldown[3]}/${champData.spells[1].cooldown[4]}`, true);
+              embedded.addField("E: "+ champData.spells[2].name, champData.spells[2].description +
+                                `\n**Cost**: ${champData.spells[2].cost[0]}/${champData.spells[2].cost[1]}/${champData.spells[2].cost[2]}/${champData.spells[2].cost[3]}/${champData.spells[2].cost[4]}` +
+                                `\n**Cooldown**: ${champData.spells[2].cooldown[0]}/${champData.spells[2].cooldown[1]}/${champData.spells[2].cooldown[2]}/${champData.spells[2].cooldown[3]}/${champData.spells[2].cooldown[4]}`, true);
+              embedded.addField("R: "+ champData.spells[3].name, champData.spells[3].description +
+                                `\n**Cost**: ${champData.spells[3].cost[0]}/${champData.spells[3].cost[1]}/${champData.spells[3].cost[2]}` +
+                                `\n**Cooldown**: ${champData.spells[3].cooldown[0]}/${champData.spells[3].cooldown[1]}/${champData.spells[3].cooldown[2]}`, true);
+              message.channel.send(embedded);
+            }
           });
         } catch(err) {
-
+          message.channel.send("Usage: !info <champion>");
         }
       })
     }
