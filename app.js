@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */ 
 const Discord   = require("discord.js");
 const moment    = require("moment");
 const client    = new Discord.Client();
@@ -46,8 +47,9 @@ client.on('message', message => {
                           "solo":"RANKED_SOLO_5x5"
                       }
                       let queue = params[2] !== undefined ? convertQueue[params[2].toLowerCase()] : "RANKED_SOLO_5x5";
+                      let outputQueue = params[2] !== undefined ? params[2] : "Solo";
                       let index = getQueueIndex(queue, rankData, "queueType");
-                      message.channel.send(params[1] + " is " + rankData[index].tier + " " + rankData[index].rank + " in " + params[2] + " queue.");
+                      message.channel.send(params[1] + " is " + rankData[index].tier + " " + rankData[index].rank + " in " + outputQueue + " queue.");
                   } catch(err){
                       message.reply("Usage: !rank <summoner> <queue>[solo, flex]");
                   }
@@ -87,6 +89,7 @@ client.on('message', message => {
             }
           });
       } else if (params[0] === "!live"){
+        try{
           let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
           Request(message, url, (data) => {
               let url = 'https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/'+data.id+'?api_key='+config.api_key;
@@ -94,6 +97,10 @@ client.on('message', message => {
                 if(liveData.status !== undefined && liveData.status.message === "Data not found"){
                       message.channel.send("User not in live game!!");
                       return;
+                  }
+                  if(liveData.status !== undefined && liveData.status.status_code > 400 ){
+                    message.channel.send(errorMessages(liveData.status.status_code));
+                    return;
                   }
                   let queue = queueMatch[liveData.gameQueueConfigId];
                   const embed = new Discord.RichEmbed();
@@ -125,6 +132,10 @@ client.on('message', message => {
                   message.channel.send({embed});
               });
           });
+        } catch(err){
+          console.log(err);
+          message.channel.send("Something went wrong. Don't put spaces idiot kid.");
+        }
       } else if(params[0] === "!matt"){
           let index = Math.floor(Math.random() * (matt.length-1)) + 1  ;
           message.channel.send(matt[index]);
@@ -175,7 +186,7 @@ client.on('message', message => {
         const embed = new Discord.RichEmbed();
         Request(message, url, (data) => {
           embed.setColor("#f4f740");
-          embed.setAuthor("🌞 " + params[1] + "'s Profile");
+          embed.setAuthor(params[1] + "'s Profile", "http://i.imgur.com/xNLs83T.png");
           embed.addField("Level: ", data.summonerLevel, true);
           let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
             Request (message, url, (rankData) => {
@@ -253,6 +264,7 @@ client.on('message', message => {
  */
 // ======== REQUEST FUNCTIONS =====
 function Request(message, url, callback){
+  try{
     https.get(url, (resp) => {
         let data = '';
         // A chunk of data has been recieved.
@@ -266,6 +278,10 @@ function Request(message, url, callback){
       }).on("error", (err) => {
         console.log("Error: " + err.message);
       });
+    } catch(err){
+      console.log(err);
+      message.channel.send("No data found! No spaces idiot kid :matt:");
+    }
 }
 
 // ==== UTIL FUNCTIONS
@@ -301,7 +317,7 @@ function getChampFromId(id){
 function errorMessages(errorCode) {
     switch (errorCode) {
       case 400:
-        return "Bad request";
+        return "Bad request. Make sure you didn't put any spaces idiot kid.";
         break;
       case 401:
         return "Unauthorized";

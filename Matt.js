@@ -1,7 +1,19 @@
+/**
+ * follow twitch.tv/lolgingfreecss
+ */
 var Matt = [
-    "https://cdn.discordapp.com/attachments/365677181772496896/365679814104842240/Screenshot_20170920-204157.png",
-    "https://cdn.discordapp.com/attachments/365677181772496896/365679813660377088/Screenshot_20170920-202658.png",
-    "https://cdn.discordapp.com/attachments/365677181772496896/365679813190746112/Screenshot_20170927-174213.png",
-    "https://cdn.discordapp.com/attachments/365677181772496896/365678256634068992/Screenshot_20171005-013554.png"
+    "https://i.imgur.com/L4booqo.png",
+    "https://i.imgur.com/ROPrrL6.jpg",
+    "https://i.imgur.com/aDUeDYF.png",
+    "https://i.imgur.com/nmUtldG.jpg",
+    "https://i.imgur.com/lON4Gdj.jpg",
+    "https://i.imgur.com/7lX2Tmn.jpg",
+    "https://i.imgur.com/MNuUSwc.jpg",
+    "https://i.imgur.com/dXgrK2x.jpg",
+    "https://i.imgur.com/9ZW6Y1D.png",
+    "https://i.imgur.com/ZhjAgip.jpg",
+    "https://i.imgur.com/iVWxcTm.png",
+    "https://i.imgur.com/D3oqJvC.png",
+    "https://i.imgur.com/49cDHHp.jpg"
 ]
 module.exports = Matt;
