@@ -254,6 +254,8 @@ client.on('message', message => {
             message.channel.send("Usage: !info <champion>");
           }
         });
+      } else if(params[0] === "!weeb"){
+        message.channel.send("https://www.youtube.com/watch?v=EuDu0m03wBM");
       }
 });
 /**
