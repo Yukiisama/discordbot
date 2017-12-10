@@ -14,6 +14,9 @@ var Matt = [
     "https://i.imgur.com/ZhjAgip.jpg",
     "https://i.imgur.com/iVWxcTm.png",
     "https://i.imgur.com/D3oqJvC.png",
-    "https://i.imgur.com/49cDHHp.jpg"
+    "https://i.imgur.com/49cDHHp.jpg",
+    "https://i.imgur.com/Ymv6Sb7.png",
+    "https://i.imgur.com/3dRVKL3.png",
+    "https://i.imgur.com/zJb5Ban.jpg"
 ]
 module.exports = Matt;
