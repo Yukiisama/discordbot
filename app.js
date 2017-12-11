@@ -232,7 +232,7 @@ client.on('message', message => {
 function errorMessages(errorCode) {
     switch (errorCode) {
       case 400:
-        return "Bad request. Make sure you didn't put any spaces idiot kid.";
+        return "Bad request. Make sure you didn't put any spaces idiot kid :matt:";
         break;
       case 401:
         return "Unauthorized";
