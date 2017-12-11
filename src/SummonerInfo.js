@@ -73,14 +73,7 @@ module.exports = (function(){
                 embed.setColor("#f4f740");
                 embed.setAuthor("Live Game Stats", "http://i.imgur.com/xNLs83T.png");
                 embed.setTitle(queue); 
-                let blueTeam = "", redTeam = "";
-                // for(var i in liveData.participants){
-                //     if(liveData.participants[i].teamId === 100){ //Blue
-                //         blueTeam+=util.formatField(liveData.participants[i])+"\n";
-                //     } else {
-                //         redTeam+=util.formatField(liveData.participants[i])+"\n";
-                //     }
-                // }                
+                let blueTeam = "", redTeam = "";               
                 let blueBans = "", redBans = "";
                 for(var j in liveData.bannedChampions){
                     let champ = util.getChampFromId(liveData.bannedChampions[j].championId);
