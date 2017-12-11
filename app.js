@@ -145,16 +145,19 @@ client.on('message', message => {
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+params[1]+'?api_key='+config.api_key;
         const embed = new Discord.RichEmbed();
         Request(message, url, (data) => {
+          console.log(data);
+          if(data.status !== undefined && data.status.status_code >= 400){ message.channel.send("Summoner not found!"); return;}
           embed.setColor("#f4f740");
           embed.setAuthor(params[1] + "'s Profile", "http://i.imgur.com/xNLs83T.png");
           embed.addField("Level: ", data.summonerLevel, true);
           let url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/'+data.id+'?api_key='+config.api_key;
             Request (message, url, (rankData) => {
+              
                 let index = util.getQueueIndex("RANKED_SOLO_5x5", rankData, "queueType");
                 if (rankData[index] === undefined) {
                   embed.addField("Ranked Stats are unavailable.", "Play your placements!");
                 } else {
-                  embed.addField("Ranked Stats: ", rankData[index].tier + " " + rankData[index].rank + "\n" + "**Winrate:** " + (Math.round(rankData[index].wins / (rankData[index].losses + rankData[index].wins) * 1000) / 1000 + "%") + " // " + rankData[index].wins + "W" + " " + rankData[index].losses + "L" + "\n" + (rankData[index].leaguePoints) + " LP", true);
+                  embed.addField("Ranked Stats: ", rankData[index].tier + " " + rankData[index].rank + "\n" + "**Winrate:** " + ((Math.round(rankData[index].wins / (rankData[index].losses + rankData[index].wins) * 1000) / 1000)*100 + "%") + " // " + rankData[index].wins + "W" + " " + rankData[index].losses + "L" + "\n" + (rankData[index].leaguePoints) + " LP", true);
                   let string = "";
                   if (rankData[index].veteran === true) {
                     string += "... is a veteran in this tier! \n";
@@ -176,14 +179,14 @@ client.on('message', message => {
               });
             });
       } else if (params[0] === "!info") {
-        let url = `https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${params[1]}?api_key=${config.api_key}`;
-        Request(message, url, (data) => {
           try {
             var championID = util.getChampID(params[1]);
+            console.log(championID);
             let url = 'https://na1.api.riotgames.com/lol/static-data/v3/champions/'+championID+'?locale=en_US&tags=all&api_key='+config.api_key;
             const embedded = new Discord.RichEmbed();
             Request(message, url, (champData) => {
-              if (champData.status != undefined) {
+              console.log(champData);
+              if (champData.status != undefined && champData.status.status_code >= 400) {
                 message.channel.send("Riot API Error: " + errorMessages(champData.status.status_code))
               } else if (champData.status == undefined) {
                 embedded.setColor("#f4f740");
@@ -213,7 +216,6 @@ client.on('message', message => {
           } catch(err) {
             message.channel.send("Usage: !info <champion>");
           }
-        });
       } else if(params[0] === "!weeb"){
         message.channel.send("https://www.youtube.com/watch?v=EuDu0m03wBM");
       } else if(params[0] === "!mattstream"){

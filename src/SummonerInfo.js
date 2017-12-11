@@ -58,7 +58,7 @@ module.exports = (function(){
         let url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/'+escape(params[1])+'?api_key='+config.api_key;
         Request(message, url, (data) => {
             let url = 'https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/'+data.id+'?api_key='+config.api_key;
-            Request(message, url, (liveData) => {
+            Request(message, url, (liveData) => {                
               if(liveData.status !== undefined && liveData.status.message === "Data not found"){
                     message.channel.send("User not in live game!!");
                     return;
